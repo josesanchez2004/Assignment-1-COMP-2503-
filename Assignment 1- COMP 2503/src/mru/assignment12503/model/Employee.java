@@ -5,9 +5,7 @@ public class Employee {
 	private String empName;
 	private String department;
 	private char type; 
-	private double hourlyWage;
-	private double salaryRate;
-	private double consultantRate; 
+	private double payRate;
 	private double maxHours;
 	
 	
@@ -17,29 +15,29 @@ public class Employee {
 		empName=null;
 		department=null;
 		type=' ';
-		hourlyWage=0;
-		salaryRate=0;
-		consultantRate=0;
+		payRate=0;
 		maxHours=0;
 	}
-	public Employee(int empNo, String empName, String department, char type, double hourlyRate, double salaryRate, double consultantRate, double maxHours) {
+	public Employee(int empNo, String empName, String department, char type, double payRate, double maxHours) {
 		this.empNo=empNo;
 		this.empName=empName;
 		this.department=department;
 		this.type= type;
-		this.hourlyWage=hourlyRate;
-		this.salaryRate=salaryRate;
-		this.consultantRate=consultantRate;
+		this.payRate=payRate;
 		this.maxHours=maxHours;
 	}
 	public Employee(Employee e) {
 		this.empNo=e.getEmpNo();
 		this.empName=e.getEmpName();
 		this.department=e.getDepartment();
-		this.hourlyWage=e.getHourlyWage();
-		this.salaryRate=e.getSalaryRate();
-		this.consultantRate=e.getConsultantRate();
+		this.payRate=e.getPayRate();
 		this.maxHours=e.getMaxHours();
+	}
+	public double getPayRate() {
+		return payRate;
+	}
+	public void setPayRate(double payRate) {
+		this.payRate = payRate;
 	}
 	public int getEmpNo() {
 		return empNo;
@@ -64,24 +62,6 @@ public class Employee {
 	}
 	public void setType(char type) {
 		this.type = type;
-	}
-	public double getHourlyWage() {
-		return hourlyWage;
-	}
-	public void setHourlyWage(double hourlyRate) {
-		this.hourlyWage = hourlyRate;
-	}
-	public double getSalaryRate() {
-		return salaryRate;
-	}
-	public void setSalaryRate(double salaryRate) {
-		this.salaryRate = salaryRate;
-	}
-	public double getConsultantRate() {
-		return consultantRate;
-	}
-	public void setConsultantRate(double consultantRate) {
-		this.consultantRate = consultantRate;
 	}
 	public double getMaxHours() {
 		return maxHours;
