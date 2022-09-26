@@ -1,14 +1,14 @@
-package mru.assignment12503.application;
+package mru.assignment12503.model;
 
 public class Employee {
 	private int empNo;
 	private String empName;
 	private String department;
 	private char type; 
-	private double hourlyRate;
+	private double hourlyWage;
 	private double salaryRate;
 	private double consultantRate; 
-	
+	private double maxHours;
 	
 	
 
@@ -16,28 +16,30 @@ public class Employee {
 		empNo=0;
 		empName=null;
 		department=null;
-		type=(Character) null;
-		hourlyRate=0;
+		type=' ';
+		hourlyWage=0;
 		salaryRate=0;
 		consultantRate=0;
-		
+		maxHours=0;
 	}
-	public Employee(int empNo, String empName, String department, char type, double hourlyRate, double salaryRate, double consultantRate) {
+	public Employee(int empNo, String empName, String department, char type, double hourlyRate, double salaryRate, double consultantRate, double maxHours) {
 		this.empNo=empNo;
 		this.empName=empName;
 		this.department=department;
 		this.type= type;
-		this.hourlyRate=hourlyRate;
+		this.hourlyWage=hourlyRate;
 		this.salaryRate=salaryRate;
 		this.consultantRate=consultantRate;
+		this.maxHours=maxHours;
 	}
 	public Employee(Employee e) {
 		this.empNo=e.getEmpNo();
 		this.empName=e.getEmpName();
 		this.department=e.getDepartment();
-		this.hourlyRate=e.getHourlyRate();
+		this.hourlyWage=e.getHourlyWage();
 		this.salaryRate=e.getSalaryRate();
 		this.consultantRate=e.getConsultantRate();
+		this.maxHours=e.getMaxHours();
 	}
 	public int getEmpNo() {
 		return empNo;
@@ -63,11 +65,11 @@ public class Employee {
 	public void setType(char type) {
 		this.type = type;
 	}
-	public double getHourlyRate() {
-		return hourlyRate;
+	public double getHourlyWage() {
+		return hourlyWage;
 	}
-	public void setHourlyRate(double hourlyRate) {
-		this.hourlyRate = hourlyRate;
+	public void setHourlyWage(double hourlyRate) {
+		this.hourlyWage = hourlyRate;
 	}
 	public double getSalaryRate() {
 		return salaryRate;
@@ -80,6 +82,12 @@ public class Employee {
 	}
 	public void setConsultantRate(double consultantRate) {
 		this.consultantRate = consultantRate;
+	}
+	public double getMaxHours() {
+		return maxHours;
+	}
+	public void setMaxHours(double maxHours) {
+		this.maxHours = maxHours;
 	}
 
 }
