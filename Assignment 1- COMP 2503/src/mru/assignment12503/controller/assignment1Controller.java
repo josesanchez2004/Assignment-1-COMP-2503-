@@ -22,7 +22,7 @@ public class assignment1Controller {
 	 Scanner in;
 	 
 	 /**
-	  * this is assignment1Controller contstructor we initialized a couple variables in this constructor aswell as called our methods that run our code.
+	  * this is assignment1Controller constructor we initialized a couple variables in this constructor as-well as called our methods that run our code.
 	  */
 	public assignment1Controller() {	
 		in = new Scanner(System.in);
@@ -35,10 +35,8 @@ public class assignment1Controller {
 	 * printDetails is a method to format the structure we want the employees information to be laid out as. 
 	 */
 	public void printDetails() {
-		 
-		 
 		 System.out.print("*How many hours did you work this week:   *");
-			int hours= in.nextInt();
+			double hours= in.nextDouble();
 			System.out.println("What is your employee ID:  ");
 			int employeeID= in.nextInt();
 			for(Employee e: employeeList){
@@ -66,8 +64,12 @@ public class assignment1Controller {
 					System.out.println("Employee Gross Weekly Pay: "+grossWeekly );
 					System.out.println(" ");
 					System.out.println("Employee Net Pay After Tax: "+ netPay);
+					System.out.println(" ");
+					System.out.println("DEMONSTRATING THAT THE COMPARETO WORKS");
 					
+					Employee e2 = new Employee(20100,"Juan","Finance",'C',80.00,30);
 					
+					System.out.println(compareTo(e,e2));
 					
 				}
 			}
@@ -94,8 +96,6 @@ public class assignment1Controller {
 		}
 		return grossWeeklyPay;
 	}
-	
-	
 	
 	/**
 	 * this method calculates the weekly wage of a salary employee
@@ -139,7 +139,6 @@ public class assignment1Controller {
 		if(hours >= maxHours) {
 			double nonPaidHours = hours - maxHours;
 			hours -= nonPaidHours; 
-			System.out.println("Non paid hours");
 		}
 		//Overtime
 		if(hours >= fortyHourWeek) {
@@ -213,7 +212,6 @@ public class assignment1Controller {
 		double cpp=0.0475;
 		double cppTax=grossWeeklyPay*cpp;
 		return cppTax;
-		
 	}
 	
 	/**
@@ -269,14 +267,12 @@ public class assignment1Controller {
 
 		double netPay;
 		
-		
-		
 		if(employeeType == hType) {
 			double unionFee = calcUnionDues(gWeeklyPay);
 			double extHealth = calcExtHealth(gWeeklyPay);
-			netPay = gWeeklyPay - incomeTax - cppTax - eiTax - unionFee - extHealth;
+			netPay = gWeeklyPay - (incomeTax + cppTax + eiTax + unionFee + extHealth);
 		}
-		if(employeeType == sType) {
+		else if(employeeType == sType) {
 			double extHealth = calcExtHealth(gWeeklyPay);
 			netPay = gWeeklyPay - incomeTax - cppTax - eiTax - extHealth;
 			
@@ -285,20 +281,16 @@ public class assignment1Controller {
 			netPay = gWeeklyPay - incomeTax - cppTax - eiTax; 
 		}
 			
-			
 		return netPay;
 	}
-	
 
 	/**
 	 *  compareTo is a method that takes in the parameter of Employee and then compares the employee numbers to see which one is greater, less than or equal. 
 	 * @param e
 	 * @return 0
 	 */
-	public int compareTo(Employee e) {
-
-		for(Employee e2:employeeList) {
-			
+	public int compareTo(Employee e, Employee e2) {
+		
 			if(e.getEmpNo()<e2.getEmpNo()) {
 				return -1;
 			}else if(e.getEmpNo()== e2.getEmpNo()) {
@@ -306,13 +298,8 @@ public class assignment1Controller {
 			}else {
 				return 1;
 			}
-		}
-		return 0;
-
+		
 	}
-	
-	
-	
 	
 	/**
 	 * loadData is a method that loads the data from the FILE_PATH and then creates information using the objects. 
