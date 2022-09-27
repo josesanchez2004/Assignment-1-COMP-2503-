@@ -1,5 +1,9 @@
 package mru.assignment12503.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import mru.assignment12503.model.Employee;
@@ -11,13 +15,64 @@ import mru.assignment12503.model.Employee;
  *
  */
 public class assignment1Controller {
-
-	Scanner in;
 	
-	public assignment1Controller() {
+	
+	private final String FILE_PATH = "res/EmployeeTestData";
+	 public static ArrayList<Employee> employeeList;
+	 Scanner in;
+	 
+	 /**
+	  * this is assignment1Controller contstructor we initialized a couple variables in this constructor aswell as called our methods that run our code.
+	  */
+	public assignment1Controller() {	
 		in = new Scanner(System.in);
+		employeeList= new ArrayList<Employee>(); 
+		loadData();
+		printDetails();
 	}
 	
+	/**
+	 * printDetails is a method to format the structure we want the employees information to be laid out as. 
+	 */
+	public void printDetails() {
+		 
+		 
+		 System.out.print("*How many hours did you work this week:   *");
+			int hours= in.nextInt();
+			System.out.println("What is your employee ID:  ");
+			int employeeID= in.nextInt();
+			for(Employee e: employeeList){
+				if (e.getEmpNo()==employeeID) {
+					
+					String empName=e.getEmpName();
+					String empDepartment= e.getDepartment();
+					char empType= e.getType();
+					double payRate= e.getPayRate();
+					double maxHours= e.getMaxHours();
+					double grossWeekly= calculateGrossWeeklyPay(hours, e);
+					double netPay=(calcNetPay(e, hours)); 
+					System.out.println("Employee ID: "+employeeID);
+					System.out.println("Employee Name:  "+ empName);
+					System.out.println("Employee Department:  "+ empDepartment);
+					if(empType=='S') {
+						System.out.println("Employee Type:  Salary");
+					}else if (empType=='H') {
+						System.out.println(" Employee Type:  Hourly");
+					}else {
+						System.out.println("Employee Type:  Consultant");
+					}
+					System.out.println("Employee Pay Rate:  "+ payRate);
+					System.out.println("Employee Max Hours:  "+ maxHours );
+					System.out.println("Employee Gross Weekly Pay: "+grossWeekly );
+					System.out.println(" ");
+					System.out.println("Employee Net Pay After Tax: "+ netPay);
+					
+					
+					
+				}
+			}
+		
+	}
 	 /**
 	  * This method classifies which pay stub an employee belongs to. Either hourly, salary, or consultant.
 	  * @param hoursWorked
@@ -59,7 +114,7 @@ public class assignment1Controller {
 		//no overtime 
 		if(hours>maxHours) {
 			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
-			System.out.println("+_________YOU CANNOT WORK ANYMORE HOURS________+");
+			System.out.println("+_________YOU DO NOT GET PAID OVERTIME________+");
 			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
 		}	
 		return weeklyPay;
@@ -81,15 +136,15 @@ public class assignment1Controller {
 		double overtimePay;
 		double total;
 		
-		if(hours > maxHours) {
+		if(hours >= maxHours) {
 			double nonPaidHours = hours - maxHours;
 			hours -= nonPaidHours; 
-			
+			System.out.println("Non paid hours");
 		}
 		//Overtime
-		if(hours > fortyHourWeek) {
+		if(hours >= fortyHourWeek) {
 			double overtimeHours = hours - fortyHourWeek;
-			overtimePay = overtimeHours * 1.5;
+			overtimePay = overtimeHours *(hourlyPay* 1.5);
 			total = hourlyPay * (hours- overtimeHours) + overtimePay;
 		}
 		else{
@@ -233,7 +288,67 @@ public class assignment1Controller {
 			
 		return netPay;
 	}
+	
+
+	/**
+	 *  compareTo is a method that takes in the parameter of Employee and then compares the employee numbers to see which one is greater, less than or equal. 
+	 * @param e
+	 * @return 0
+	 */
+	public int compareTo(Employee e) {
+
+		for(Employee e2:employeeList) {
+			
+			if(e.getEmpNo()<e2.getEmpNo()) {
+				return -1;
+			}else if(e.getEmpNo()== e2.getEmpNo()) {
+				return 0;
+			}else {
+				return 1;
+			}
+		}
+		return 0;
+
+	}
+	
+	
+	
+	
+	/**
+	 * loadData is a method that loads the data from the FILE_PATH and then creates information using the objects. 
+	 */
+	public void loadData() {
+		File employeeData = new File(FILE_PATH);
+		try {
+			Scanner fileRead= new Scanner(employeeData);
+			while (fileRead.hasNextLine()) {
+			String line = fileRead.nextLine();
+			String[]lineSplitter= line.split(" ");
+			int empNo= Integer.parseInt(lineSplitter[0]);
+			String empName= lineSplitter[1];
+			String department =lineSplitter[2];
+			char empType= lineSplitter[3].charAt(0);
+			double payRate= Double.parseDouble(lineSplitter[4]);
+			double maxHours= Double.parseDouble(lineSplitter[5]);
+			
+			
+			 
+			Employee employee=new Employee(empNo,empName,department,empType,payRate,maxHours);
+			employeeList.add(employee);
+				
+			}
+			fileRead.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 }
+
+
 
 
 

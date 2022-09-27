@@ -153,5 +153,12 @@ public class Employee {
 		this.maxHours = maxHours;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee Number :  "+getEmpName()+"   Employee Name: "+ getEmpName()+"   Employee Department:  "+ getDepartment()+"   Employee Type:  "+ getType()+ "Employee Pay Rate :     "+getPayRate()+"  Employee Max Hours:   "+ getMaxHours();  
+	}
+	
+	
+
 }
 
