@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"mru.assignment12503.controller","l":"assignment1Controller"}];updateSearchResults();
